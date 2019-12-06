@@ -1,1 +1,18 @@
 \section{Solution}
+To solve the problems defined in the previous section we developed a parallel framework for grid statistic computation.
+This framework abstracts the parallelization from the statistics computation. 
+The framework was implemented with MPI, OpenMP, and Java threads.
+Dynamic IO is used so that reading and writing large grids can be scaled in either direction.
+
+\par 
+Abstracting parallelization behind a frameork provides a simple solution for quickly generating grid statistics.
+The framework can determine the appropriate ussage of resources on the machine to quickly generate grids.
+The user is left to be converned with the statistics.
+This abstraction works well as it allows the user to implement or edit exsisting statistics in a quick way.
+
+\par
+The large grid size is a limiting factor for machines without copious resources.
+Using dynamic IO solves this issue.
+Essentially, read and writes are buffered so that only needed data is read in when required.
+This implementation worked very well. 
+For example, the Java threads implementation used the Java NIO package with natively supports file buffering.
