@@ -1,1 +1,42 @@
 \section{Java Implementation}
+
+We implemented a Java threads version of the framework.
+This is a pure Java implementation that fully supports all aspects of the framework.
+All grids are written in parallel which is a improvement over the C implementation.
+
+\par
+Java's executor service is utilized for parallelization.
+A main loop runs using the apache commons CLI interface to read inputs and settings.
+The main loop then intelligently divides the work and submits each thread to be executed by the executor service.
+The executor services will preform the computations on the maximum amount of cores available.
+
+\par
+The NIO (Non-Blocking Input/Output) package is used for concurrent writting and reading of grids.
+Essentially, a shared object is passed to each process that gives conccurent read access to the grid.
+A writer object is used to queue writes to output files.
+This queue is able to write to the output file in a non sequential manner by growing the grid file size in-situ.
+This is enabled by the NIO FileChannel class by passing the bytes as a stream to the files or processes.
+
+\par
+This implementation uses Java interfaces to define the API.
+There are 2 main classes defined in the API.
+A Generator and a Collector class.
+The generator class is implemented to read a grid and calculate a correponding statistic grid.
+Generators need to be thread safe and have all statistics submitted to a collector.
+A collector class is implemented to handle generated statistics.
+Collector's pipe statistics to a generated file.
+This piping needs to be implemented in a non-sequential manner.
+
+\par
+There are three modules implemented for the Java framework.
+There is a mean, standard deviation, and plane fit module implemented.
+The plane fit statistic is implemented using the Plane class from the apache commons math package.
+A plane fit can be a very computationally exspensive.
+The apache commons plane class does a partial fit that is accurate enough and very fast.
+This makes it ideal for fitting accurate planes in a efficent amount of time.
+
+\par
+This implementation offers a helpful CLI interface that makes running streamlined.
+Allowing a user to specify settings, input, and output grids without recompiling.
+This makes the Java implementation the most convient version to use.
+Currently, the Java implementation is being used to generate grids for the project.
