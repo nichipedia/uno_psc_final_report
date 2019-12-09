@@ -1,1 +1,24 @@
 \section{MPI Implementation}
+
+The MPI implementation uses the same constructs as the OpenMP implementation.
+Each process in the cluster is responsible for running statistical calculations on a portion of the grid.
+Ideally, MPI's message passing will then exchange all of the appropriate information to facilitate these graphs.
+The inherit transmission overhead is typically offset by parallel efficency.
+However, for this problem domain, we found MPI to be a unsuitable for this specific problem.
+
+\par
+We used a MPI Scatter and Gather to distribute the grid data to each process.
+This caused issues with the broadcast hanging up on the large segment of data.
+Also, due to the distributed memory environment the grid data is unnessasarrily duplicated across processes.
+
+\par
+These issues lead to poor preformance by the MPI implementation.
+The framework was implemented using the C header files.
+The preformance issues made the MPI version impossible to test correctly.
+LONI even canceled the execution of one of our long running processes.
+
+\par
+Potentially, the preformance issues can be solved by decreasing message sizes.
+This adds additional overhead from each transmission, and does not solve the duplication issue.
+This could potentially be offset by efficency gains.
+We could also preform a divide and conquer approach using the MPI_REDUCE.
