@@ -1,35 +1,23 @@
 \section{OpenMP Implementation}
 
-We implemented a OpenMP C based version of the framework.
-This is a pure C based implementation.
-It offers grid buffering, and extremely quick computation.
-This is inherit to C's low level execution.
+The first implementation we developed was a pure C based implementation using OpenMP constructs. 
+The thought here was to leverage C’s highly efficient computation combined with OpenMP shared memory parallelization. 
+The parallel portion of the implementation is comprised of two “for” loops. 
+A public outer loop is used to split up grid processing, by rows, across a number of available processes. 
+A second private inner loop is then used by each process to iterate over column based computations.
 
 \par
-OpenMP's for pragma is used for parallelization.
-A public outer for loop is used to split up grid processing across a number of processes.
-A private inner for loop is then used to garuntee each process preforms computations on each column.
+A shared pointer is used for shared reading across processes. 
+There are two modes implemented for reading from the input bathymetry grids. 
+The first will read the entire grid into memory. 
+This mode allows for rapid access to input data but requires a large amount of memory to hold high resolution data grids.  
+The second mode uses dynamic buffered reads that allow each process to access the input data as needed. 
+The second method was created to test performance on systems with limited amounts of available memory.
 
 \par
-A shared pointer is used for shared reading across processes.
-There are two modes implemented for reading from the grids.
-The grids can be read completely into memory which offers very quick reads.
-They can also be buffered from files.
-This allows for larger grids to be computed on systems with less memory.
-Allowing only the required cells to be read as needed for computations.
-
-\par
-The interface is defined in C header files.
-Succiently, the header files define functions so that the implementation can be abstracted.
-Each module needs to implement a "genStat" function and be compiled with the framework to be used.
-The same is used for the file writting modules. 
-This abstraction allows for modules to be implemented insitu and then read compiled into the executable.
-
-\par
-A mean and standard deviation module are currently implemented for the C library.
-These modules rely on C's inherit low level computation speed.
-They preform well and generate accurate grids.
-
-\par
-Implementing modules in the C framework requires a new file that implements the header files.
-This file is then compiled into a executable and ran with arguements specifying cores, input, and output grids.
+We developed an interface for the statistical computations.  
+The interface, defined in C header files, contains a single “genStat” function. 
+This single entry point into the statistical computation allows for multiple implementations to be developed without having to modify the parallel portion of the code. 
+Each statistical computation module can be swapped in and out at compilation time by the inclusion of different header files. 
+We implemented two versions of the “genStat” function, one to compute mean, the other to compute standard deviation. 
+Due to time restrictions of this class project we were not able to implement a planar regression function in C but plan to do so going forward. 

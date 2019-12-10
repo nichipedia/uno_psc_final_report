@@ -1,18 +1,22 @@
 \section{Solution}
-To solve the problems defined in the previous section we developed a parallel framework for grid statistic computation.
-This framework abstracts the parallelization from the statistics computation. 
-The framework was implemented with MPI, OpenMP, and Java threads.
-Dynamic IO is used so that reading and writing large grids can be scaled in either direction.
-
-\par 
-Abstracting parallelization behind a frameork provides a simple solution for quickly generating grid statistics.
-The framework can determine the appropriate ussage of resources on the machine to quickly generate grids.
-The user is left to be converned with the statistics.
-This abstraction works well as it allows the user to implement or edit exsisting statistics in a quick way.
+For this project we developed a parallel framework to abstract out the individual statistical and mathematical computation components from the parallel implementations. 
+It was important do develop this framework due to the nature of the problem we are trying to solve. 
+Again when training bathymetric prediction algorithms we don’t know up front what the ideal inputs are for optimal prediction. 
+Therefore it is possible that we have to change statistical and mathematical computation regularly to produce improved results. 
+Having computation components abstracted from the parallel implementation allows for rapid development and deployment of new statistical and mathematical computations. 
+This allows for more time to train prediction models and evaluate results.
 
 \par
-The large grid size is a limiting factor for machines without copious resources.
-Using dynamic IO solves this issue.
-Essentially, read and writes are buffered so that only needed data is read in when required.
-This implementation worked very well. 
-For example, the Java threads implementation used the Java NIO package with natively supports file buffering.
+Our solution is comprised of three different implementations, one using OpenMP, one using MPI and one using Java and Java threads. 
+It is our hypothesis that each programming paradigm would have strengths and weaknesses when running different types of statistical computations. 
+In order to find the most efficient use of resources we would compare each implementation against a set of statistical computations to see which performed best. 
+We used a 30 second resolution bathymetry dataset as our baseline input and choose mean, standard deviation and plane fit for the statistical computations.
+
+\par
+To address memory consumption with large input datasets, we leveraged dynamic memory access. 
+Instead of reading an entire grid of data into memory, each process would access dynamically the memory it needed for computation. 
+This approach allowed us to process larger data sets on machines with limited memory. 
+When applicable we also leveraged buffered I/O. 
+Using buffered I/O would limit the amount of disk access when reading data dynamically. 
+An example of this can be found in our java implementation. 
+Here we used the BufferdReader and BufferedWriter classes to handle all I/O performed by the computation threads.

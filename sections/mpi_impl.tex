@@ -1,24 +1,28 @@
 \section{MPI Implementation}
-
-The MPI implementation uses the same constructs as the OpenMP implementation.
-Each process in the cluster is responsible for running statistical calculations on a portion of the grid.
-Ideally, MPI's message passing will then exchange all of the appropriate information to facilitate these graphs.
-The inherit transmission overhead is typically offset by parallel efficency.
-However, for this problem domain, we found MPI to be a unsuitable for this specific problem.
-
-\par
-We used a MPI Scatter and Gather to distribute the grid data to each process.
-This caused issues with the broadcast hanging up on the large segment of data.
-Also, due to the distributed memory environment the grid data is unnessasarrily duplicated across processes.
+The MPI implementation is another pure C implementation that follows the parallel computational framework we developed. 
+The parallel portion of this code relies on the number of processes set at program execution. 
+Computation is divided up based on each process being responsible for performing computations on a predetermined number of grid rows. 
+MPI\_Bcast was used to share input data across processes and MPI\_Gather was used to receive computation results from each process. 
+Individual functions were written to compute mean and standard deviation based on an input grid. 
+An integer input parameter was used to signal which type of statistical computation to perform.
 
 \par
-These issues lead to poor preformance by the MPI implementation.
-The framework was implemented using the C header files.
-The preformance issues made the MPI version impossible to test correctly.
-LONI even canceled the execution of one of our long running processes.
+The initial design of this implementation was to use a single process to read the input data and use the MPI\_Bcast method to pass the entire grid to each process. 
+The though was if each process could contain the entire grid, this would limit the amount of data exchange that would need to take place across active processes. 
+However, during execution, the MPI\_Bcast would never complete causing the application to hang. 
+We attributed this behavior to the size of the data that was being transmitted.
 
 \par
-Potentially, the preformance issues can be solved by decreasing message sizes.
-This adds additional overhead from each transmission, and does not solve the duplication issue.
-This could potentially be offset by efficency gains.
-We could also preform a divide and conquer approach using the MPI_REDUCE.
+The second attempt was to let each process read the input grid data. 
+While this approach is inefficient, we felt that this was a suitable workaround to the MPI\_Bcast issue. 
+This solution was able to process statistical computations but the performance was extremely poor. 
+To run the MPI implementation we used the Louisiana Optical Network Infrastructure (LONI) resources. 
+LONI sets limitations on the amount of time an application can execute. 
+Due to the poor performance of our MPI implementation our processes would be terminated for exceeding these thresholds and a complete output data set would not be generated. 
+It is our hypothesis that the large amounts of data being sent between processes, particularly through the MPI\_Gather function, was the cause for the poor performance.
+
+\par
+Going forward we would like to develop more sophisticated algorithms that can reduce the amount of data being sent across processes. 
+There is potential to preprocess the data by segments using MPI\_Reduce for data that would need to be shared between computing processes. 
+This may help to alleviate the amount of message passing needed. 
+However, based on our initial findings, distributed memory parallelism does not seem to be well suited for this type of problem.
