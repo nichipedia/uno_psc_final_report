@@ -23,6 +23,6 @@ It is our hypothesis that the large amounts of data being sent between processes
 
 \par
 Going forward we want to develop more sophisticated algorithms that can reduce the amount of data being sent across processes. 
-There is potential to pre-process the data by segments using MPI\_Reduce for data that would need to be shared between computing processes. 
+There is potential to preprocess the data by segments using MPI\_Reduce for data that would need to be shared between computing processes. 
 This may help to alleviate the amount of message passing needed. 
 However, based on our initial findings, distributed memory parallelism does not seem to be well suited for this type of problem.

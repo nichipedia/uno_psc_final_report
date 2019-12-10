@@ -30,8 +30,8 @@ The original FORTRAN program required months to run.
 However, we timed the Java implementation at around two weeks for 20 cores.
 We decided not run it at lower core counts for lack of time.
 Predicting based on a classic parallel computing trend line, the time requirements will be several months to compute those results.
-The MPI and OpenMP implementations are not included in Figure 4 due to a lack of an quickly accessible C based plane fit algorithm.
-For future work, we will use a performant C based plane fit implementation to test the OpenMP implementation against our current results.
+The MPI and OpenMP implementations are not included in Figure 4 due to a lack of an quickly accessabile C based plane fit algorithm.
+For future work, we will use a performant C based plane fit implementation to test the OpenMP implementation aganist our current results.
 
 \begin{figure}[h]
     \centering

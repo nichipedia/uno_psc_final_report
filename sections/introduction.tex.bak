@@ -23,4 +23,4 @@ To address these issues the Naval Research Laboratory (NRL) has proposed a resea
 The goal of this project is to develop models that will accurately predict world-wide bathymetry.  
 The method being employed is to use machine learning to train algorithms on different sets of input parameters, for different scenarios, to produce higher resolution bathymetry.  
 The input parameters these algorithms require come from multiple sources, but for the scope of this project we will focus on the ones that are calculated from existing datasets.  
-It is NRL’s hypothesis that derived statistical data from existing grided bathymetric data sets can be used as training data to increase prediction accuracy.
+It is NRL’s hypothesis that derived statistical data from existing gridded bathymetric data sets can be used as training data to increase prediction accuracy.

@@ -7,9 +7,9 @@ This maintains our separation of parallel and statistical computation components
 The parallel portion consists of a single loop that uses Apache Commons CLI interface to read various input and settings used to create the tasks to submit to the executor service.
 
 \par
-We used the Java NIO (Non-Blocking Input/Output) package for concurrent reading and writing of grided data. 
+We used the Java NIO (Non-Blocking Input/Output) package for concurrent reading and writing of gridded data. 
 A single shared I/O object was developed and given to each task for concurrent read access to the input grid data. 
-To write results back to a grided structure a writer object was created. 
+To write results back to a gridded structure a writer object was created. 
 The writer object, through the use of the NIO FileChannel class, can write data to file in a non-sequential manner. 
 This allows the threads to submit computation results to be written in any order without incurring any wait penalties.
 

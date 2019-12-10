@@ -6,6 +6,6 @@ By separating the parallel code from the calculation code this gave us the flexi
 This solved the issues of having to be very fluid when producing training data for experimental bathymetric prediction algorithms.  
 Multiple implementations allowed for computation performance evaluation for different types of statistical features. 
 In addition we were able to leverage individual computing paradigms to find which provided the best support for the type of computations we needed to perform.  
-Our initial results provided evidence that parallelism drastically improved performance when running computations on extremely large input data grids.  
-We also observed that shared memory parallelism seemed to perform better than distributed memory parallelism when computing statistical calculations on large grided data sets.  
+Our initial results provided evidence that parallelization drastically improved performance when running computations on extremely large input data grids.  
+We also observed that shared memory parallelization seemed to perform better than distributed memory parallelization when computing statistical calculations on large gridded data sets.  
 Based on the work performed on this project, initial statistical feature sets have been provided to the geophysicists for bathymetric prediction model training and evaluation. 

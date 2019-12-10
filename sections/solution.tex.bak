@@ -2,7 +2,7 @@
 For this project we developed a parallel framework to abstract out the individual statistical computation components from the parallel implementations. 
 The problem we are trying to solve made developing this framework an excellent solution.
 When training bathymetric prediction algorithms we do not know in-situ what the ideal features are for optimal prediction. 
-Therefore, it is guaranteed that we will have to iterate on our statistical computations regularly to improve results. 
+Therefore, it is garunteed that we will have to iterate on our statistical computations regularly to improve results. 
 Having computation components abstracted from the parallel implementation allows for rapid development and deployment of new statistical computations. 
 This allows for more time to train prediction models and evaluate results.
 

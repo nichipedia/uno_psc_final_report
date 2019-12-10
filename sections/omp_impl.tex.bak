@@ -1,7 +1,7 @@
 \section{OpenMP Implementation}
 
 The first implementation we developed was a pure C based implementation using OpenMP constructs. 
-The thought was to leverage C’s highly efficient computation combined with OpenMP's shared memory parallelism. 
+The thought was to leverage C’s highly efficient computation combined with OpenMP's shared memory parallelization. 
 The parallel portion of the implementation is comprised of two “for” loops. 
 A public outer loop is used to split up grid processing, by rows, across a number of available processes. 
 A second private inner loop is then used by each process to iterate over column based computations.
