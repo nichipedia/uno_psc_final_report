@@ -1,17 +1,16 @@
 \section{Results}
-To record results we computed the statistics using a thirty second bathymetry grid.
-The grid was chosen because of the size and complexity of the computations.
-This grid will give good results for potential runtimes and allow to anticipated the time scaled to larger resolutions
-Included in the results is a time for a Fortran implementation.
-Fortran was the original language for these grid computations.
-These programs did not scale well for larger resolution grids.
-We only recorded the execution times for the Java and OpenMP implementations.
-This is because of the preformance issues we experienced with the MPI implementation.
+For testing the three implementations we used a 30 second bathymetry grid as the baseline input dataset. 
+Execution times were recorded by using each programming paradigm’s underlying method for getting current time at application start and application end, subtracting these values and converting to hours. 
+From prior work done in the past we had access to a single threaded Fortran program that computes mean and standard deviation for gridded data.  
+We used the Fortran execution times previously previously recorded for 30 second input data to compare against our results.  
+While not an ideal comparison, time constraints prevented us from creating single threaded versions of our implementations and running them.  
+They simply take too long to process a data set as large as the 30 second resolution grid that we used as our baseline.
 
 \par
 The Mean and Standard deviation times are shown in Figure 3.
 All results were timed in hours for each coresponding core ammount.
-The mean and standard deviation graph shows a obvious curve.
+As to be expected, the mean and standard deviation graphs fit the classical parallel efficency curve \cite{buzbee}.
+Figure 3 does not include results for the MPI implementation because of the impediments discussed earlier in the report.
 \begin{figure}[h]
     \centering
     \includegraphics[scale=0.5]{merp}
@@ -21,15 +20,16 @@ The mean and standard deviation graph shows a obvious curve.
 
 \par
 Java threads preformed marginally slower than the C implementation.
-The slow down scaled well with more cores used in computation.
-Going from several days to only several hours at higher core count.
+However, this slow down scaled as more cores are used in computation.
+Going from several days to only several hours at higher core counts.
+
 
 \par
-The Plane fit results are shown in Figure 4.
+The Plane fit execution times are shown in Figure 4.
 The original Fortran program required months to run.
 However, we timed the Java implementation at around two weeks for 20 cores.
-We did not run it at lower core counts for sake of time.
-Predicting based on previous trends the time requirements will be several months.
+We did not run it at lower core counts for lack of time.
+Predicting based on a classic parallel computing trend line, the time requirements will be several months to compute those results.
 
 \begin{figure}[h]
     \centering

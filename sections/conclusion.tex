@@ -1,7 +1,11 @@
 \section{Conclusion}
 
 \par
-The product of this project is a parallel framework for computing grid statistics.
-The results of which shows that computing grid statistics scales very well in parallel.
-The Java implementation offers the easiest use with its simple command line interface.
-This implementation is currently being used for generating statistics.
+In this project we developed a parallel modular framework in which we created three separate implementations of statistical feature generation applications.  
+By separating the parallel code from the calculation code this gave us the flexibility to change and add new computation modules without editing the parallel logic.  
+This solved the issues of having to be very fluid when producing training data for experimental bathymetric prediction algorithms.  
+Multiple implementations allowed for computation performance evaluation for different types of statistical features. 
+In addition we were able to leverage individual computing paradigms to find which provided the best support for the type of computations we needed to perform.  
+Our initial results provided evidence that parallelization drastically improved performance when running computations on extremely large input data grids.  
+We also observed that shared memory parallelization seemed to perform better than distributed memory parallelization when computing statistical calculations on large gridded data sets.  
+Based on the work performed on this project, initial statistical feature sets have been provided to the geophysicists for bathymetric prediction model training and evaluation. 

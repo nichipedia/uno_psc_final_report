@@ -8,9 +8,9 @@ An integer input parameter was used to signal which type of statistical computat
 
 \par
 The initial design of this implementation was to use a single process to read the input data and use the MPI\_Bcast method to pass the entire grid to each process. 
-The though was if each process could contain the entire grid, this would limit the amount of data exchange that would need to take place across active processes. 
-However, during execution, the MPI\_Bcast would never complete causing the application to hang. 
-We attributed this behavior to the size of the data that was being transmitted.
+The thought was if each process could contain the entire grid, this would limit the amount of data exchange that will need to take place across active processes. 
+However, during execution, the MPI\_Bcast will never complete causing the application to hang. 
+We attributed this behavior to the size of the data being transmitted.
 
 \par
 The second attempt was to let each process read the input grid data. 
@@ -22,7 +22,7 @@ Due to the poor performance of our MPI implementation our processes would be ter
 It is our hypothesis that the large amounts of data being sent between processes, particularly through the MPI\_Gather function, was the cause for the poor performance.
 
 \par
-Going forward we would like to develop more sophisticated algorithms that can reduce the amount of data being sent across processes. 
+Going forward we want to develop more sophisticated algorithms that can reduce the amount of data being sent across processes. 
 There is potential to preprocess the data by segments using MPI\_Reduce for data that would need to be shared between computing processes. 
 This may help to alleviate the amount of message passing needed. 
 However, based on our initial findings, distributed memory parallelism does not seem to be well suited for this type of problem.

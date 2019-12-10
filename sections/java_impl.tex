@@ -2,8 +2,8 @@
 We developed a Java implementation of the parallel statistics computation framework. 
 Using Java we were able to take advantage of multiple language specific components to aid in development. 
 For the parallel portion we leveraged Java’s executor service. 
-The executor service would allow us to define individual tasks to be performed on independent threads. 
-This would maintain our separation of parallel and statistical computation components. 
+The executor service allows us to define individual tasks to be performed on independent threads. 
+This maintains our separation of parallel and statistical computation components. 
 The parallel portion consists of a single loop that uses Apache Commons CLI interface to read various input and settings used to create the tasks to submit to the executor service.
 
 \par
@@ -14,7 +14,7 @@ The writer object, through the use of the NIO FileChannel class, can write data 
 This allows the threads to submit computation results to be written in any order without incurring any wait penalties.
 
 \par
-For the computational components we developed an interface via the Java Interface class. 
+For the computational components we developed an interface via the Java Interface language feature. 
 Objects called Generators were developed to implement the computation interface. 
 The Generators are responsible for reading in the input grid data and performing some type of calculation. 
 These are the task objects referenced above that are sent to the executor service. 

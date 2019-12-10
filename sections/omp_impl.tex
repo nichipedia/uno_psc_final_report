@@ -1,7 +1,7 @@
 \section{OpenMP Implementation}
 
 The first implementation we developed was a pure C based implementation using OpenMP constructs. 
-The thought here was to leverage C’s highly efficient computation combined with OpenMP shared memory parallelization. 
+The thought was to leverage C’s highly efficient computation combined with OpenMP's shared memory parallelization. 
 The parallel portion of the implementation is comprised of two “for” loops. 
 A public outer loop is used to split up grid processing, by rows, across a number of available processes. 
 A second private inner loop is then used by each process to iterate over column based computations.
@@ -9,7 +9,7 @@ A second private inner loop is then used by each process to iterate over column 
 \par
 A shared pointer is used for shared reading across processes. 
 There are two modes implemented for reading from the input bathymetry grids. 
-The first will read the entire grid into memory. 
+The first reads the entire grid into memory. 
 This mode allows for rapid access to input data but requires a large amount of memory to hold high resolution data grids.  
 The second mode uses dynamic buffered reads that allow each process to access the input data as needed. 
 The second method was created to test performance on systems with limited amounts of available memory.
@@ -18,6 +18,6 @@ The second method was created to test performance on systems with limited amount
 We developed an interface for the statistical computations.  
 The interface, defined in C header files, contains a single “genStat” function. 
 This single entry point into the statistical computation allows for multiple implementations to be developed without having to modify the parallel portion of the code. 
-Each statistical computation module can be swapped in and out at compilation time by the inclusion of different header files. 
+Each statistical computation module can be swapped at compilation time by the inclusion of different implementations of the header files. 
 We implemented two versions of the “genStat” function, one to compute mean, the other to compute standard deviation. 
 Due to time restrictions of this class project we were not able to implement a planar regression function in C but plan to do so going forward. 
